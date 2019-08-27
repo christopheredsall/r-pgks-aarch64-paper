@@ -1,6 +1,10 @@
 \documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{listings}
+\usepackage{biblatex}
+\addbibresource{r-pkgs-aarch64.bib}
+ 
+
 
 \title{A Survey of R Package Installabilty on 64-bit ARM Architecture aarch64 Using Continuous Integration}
 \author{Edsall, Christopher\\
@@ -17,7 +21,7 @@
 \maketitle
 
 \section{Introduction}
-The R programming language is the preeminent open source language in the domain of statistics. A large part of the popularity of the language is due to the extensive library of packages hosted on the comprehensive R archive network (\textsc{CRAN}). The \textsc{CRAN} website lists the package build status on a number of platforms but these do not include \texttt{aarch64}. A number (n=XXX) of users at our institution use R on the high performance computing facilities, what proportion of them could make use of the 64-bit ARM platforms? This paper proposes a method to test and shows results for an important subset of the total population of libraries YY\% of them can be installed "out of the box". 
+The R programming language\cite{R:Ihaka+Gentleman:1996} is the preeminent open source language in the domain of statistics. A large part of the popularity of the language is due to the extensive library of packages hosted on the comprehensive R archive network (\textsc{CRAN}). The \textsc{CRAN} website lists the package build status on a number of platforms but these do not include \texttt{aarch64}. A number (n=XXX) of users at our institution use R on the high performance computing facilities, what proportion of them could make use of the 64-bit ARM platforms? This paper proposes a method to test and shows results for an important subset of the total population of libraries YY\% of them can be installed "out of the box". 
 
 \section{Testing Package Installability}
 
@@ -92,5 +96,7 @@ Catalyst & 29 (66\%) & 15 (34\%) \\ \hline
 \section{Acknowledgments}
 
 The authors wish to thank the University of Bristol Advanced Computing Research Centre (\textsc{ACRC}) for access to the aarch64 clusters. The Isambard project is funded by EPSRC research grant number EP/P020224/1. The Catalyst UK programme is supported by ARM, HPE and SUSE.
+
+\printbibliography
 
 \end{document}
