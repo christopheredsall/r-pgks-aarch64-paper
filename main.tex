@@ -1,0 +1,57 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{listings}
+
+\title{A Survey of R Package Installabilty on 64-bit ARM Architecture aarch64 Using Continuous Integration}
+\author{Edsall, Christopher\\
+  \texttt{chris.edsall@bristol.ac.uk}
+  \and
+  Rutterford, Ainsley\\
+  \texttt{ar16478@bristol.ac.uk}
+}
+
+\date{August 2019}
+
+\begin{document}
+
+\maketitle
+
+\section{Introduction}
+The R programming language is the preeminent open source language in the domain of statistics. A large part of the popularity of the language is due to the extensive library of packages hosted on the comprehensive R archive network (\textsc{CRAN}). The \textsc{CRAN} website lists the package build status on a number of platforms but these do not include \texttt{aarch64}. A number (n=XXX) of users at our institution use R, what proprotion of them could make use of 64-bit ARM platforms?
+
+\section{Testing Package Installability}
+
+\begin{lstlisting}[language=R, caption=Testing that package \texttt{tidyr} can be installed and loaded]
+if (!require('tidyr')) {
+install.packages('tidyr',
+                 repos='https://www.stats.bris.ac.uk/R/')
+}
+library('tidyr')
+\end{lstlisting}
+
+
+\section{Generation of the List of Packages}
+
+\section{Continuous Integration Platforms Supporting aarch64}
+
+The criteria for choosing a continuous integration platform is that the "runner" or "agent" had to support \texttt{aarch64}.
+
+\begin{table}[]
+\begin{tabular}{lll}
+\cline{1-3}
+Service & Usable on aarch64 & Comments\\ \cline{1-3}
+Travis & No & Runs via emulation on their infrastructure\\
+GitLab & No & aarch64 runner not yet production\\
+Azure Pipelines & No & ---\\
+Buildkite & \textbf{Yes} & --- \\
+Buildbot & Probably & Not evaluated due to time \\ \cline{1-3}
+\end{tabular}
+\caption{List of continuous integration services, status as at Sept 2019}
+\label{tab:ci-services}
+\end{table}
+
+\section{Results}
+
+
+
+\end{document}
