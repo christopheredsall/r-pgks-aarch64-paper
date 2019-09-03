@@ -20,8 +20,20 @@
 
 \maketitle
 
+\begin{abstract}
+ A large part of the popularity of the R language is due to the extensive library of packages hosted on repositories such as the comprehensive R archive network (\textsc{CRAN}) and BioConductor. The \textsc{CRAN} website lists the package build status on a number of platforms but these do not include \texttt{aarch64}. A number (n=XXX) of users at our institution use R on the high performance computing facilities, what proportion of them could make use of the 64-bit ARM platforms? This paper proposes a method to test and shows results for an important subset of the total population of libraries 95\% of them can be installed "out of the box". 
+\end{abstract}
+
 \section{Introduction}
-The R programming language\cite{R:Ihaka+Gentleman:1996} is the preeminent open source language in the domain of statistics. A large part of the popularity of the language is due to the extensive library of packages hosted on the comprehensive R archive network (\textsc{CRAN}). The \textsc{CRAN} website lists the package build status on a number of platforms but these do not include \texttt{aarch64}. A number (n=XXX) of users at our institution use R on the high performance computing facilities, what proportion of them could make use of the 64-bit ARM platforms? This paper proposes a method to test and shows results for an important subset of the total population of libraries YY\% of them can be installed "out of the box". 
+
+The R programming language\cite{R:Ihaka+Gentleman:1996} is the preeminent open source language in the domain of statistics\cite{muenchen2012popularity}. The interpreter has been ported to many computer architectures including the \textsc{ARM} aarch64. To extend the functionality of the language packages can be installed. 
+
+R packacge compiling
+
+Other aarch64 HPC environment.
+
+test vs X86_64
+
 
 \section{Testing Package Installability}
 
@@ -33,10 +45,13 @@ install.packages('tidyr',
 library('tidyr')
 \end{lstlisting}
 
+Failures: bioconductor not installed, missing operating system packages, missmatch with interpreter versions. PAckage removed from CRAN (RNeo4j)
 
 \section{Generation of the List of Packages}
 
 The total number of packages in the \textsc{CRAN} as of 27 August 2019 was 14857 and the number in BioCondcutor was 1741. As a method of reducing the computation required we decided to select a subset used by our users. We performed a search of the filesystem on our two largest Intel based clusters to find files named \texttt{*.r} and \texttt{*.R}.
+
+We excluded individual's own pacakges and those that are not on \textsc{CRAN} or BioConductor.
 
 \section{Continuous Integration Platforms Supporting aarch64}
 
@@ -80,7 +95,7 @@ As an initial test we took the list of packages (n=44) used by one user. The res
 \hline
 System & PASS & FAIL \\ \hline
 Isambard & 19 (43\%) & 25 (57\%) \\
-Catalyst & 29 (66\%) & 15 (34\%) \\ \hline
+Catalyst & 42 (95\%) & 2 (5\%) \\ \hline
 \end{tabular}
 \caption{Initial results for 44 pacakges}
 \label{tab:results-one-user}
@@ -95,7 +110,7 @@ Catalyst & 29 (66\%) & 15 (34\%) \\ \hline
 
 \section{Acknowledgments}
 
-The authors wish to thank the University of Bristol Advanced Computing Research Centre (\textsc{ACRC}) for access to the aarch64 clusters. The Isambard project is funded by EPSRC research grant number EP/P020224/1. The Catalyst UK programme is supported by ARM, HPE and SUSE.
+The authors wish to thank the University of Bristol Advanced Computing Research Centre (\textsc{ACRC}) for access to the aarch64 clusters. This work used the Isambard UK National Tier-2 HPC Service (http://gw4.ac.uk/isambard/) operated by GW4 and the UK Met Office, and funded by EPSRC (EP/P020224/1). The Catalyst UK programme is supported by ARM, HPE and SUSE.
 
 \printbibliography
 
