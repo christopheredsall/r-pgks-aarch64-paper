@@ -1,61 +1,138 @@
 % !TeX root = RJwrapper.tex
-\title{Capitalized Title Here}
-\author{by Author One, Author Two and Author Three}
+\title{A Survey of R Package Installabilty on 64-bit ARM Architecture aarch64 Using Continuous Integration}
+\author{by Christopher Edsall and Ainsley Rutterford}
 
 \maketitle
 
 \abstract{
-An abstract of less than 150 words.
+A large part of the popularity of the R language is due to the extensive
+library of packages hosted on repositories such as the comprehensive R
+archive network (\textsc{CRAN}) and BioConductor. The \textsc{CRAN} website
+lists the package build status on a number of platforms but these do not
+include \texttt{aarch64}. A number (n=XXX) of users at our institution use R
+on the high performance computing facilities, what proportion of them could
+make use of the 64-bit ARM platforms? This paper proposes a method to test
+and shows results for an important subset of the total population of
+libraries 95\% of them can be installed "out of the box".
 }
 
-\section{Section title in sentence case}
+\section{Introduction}
 
-Introductory section which may include references in parentheses
-\citep{R}, or cite a reference such as \citet{R} in the text.
+The R programming language\citep{R:Ihaka+Gentleman:1996} is the preeminent
+open source language in the domain of
+statistics\citep{muenchen2012popularity}. The interpreter has been ported to
+many computer architectures including the \textsc{ARM} aarch64. To extend
+the functionality of the language packages can be installed.
 
-\section{Another section}
+R packacge compiling
 
-This section may contain a figure such as Figure~\ref{figure:rlogo}.
+Other aarch64 HPC environment.
 
-\begin{figure}[htbp]
-  \centering
-  \includegraphics{Rlogo-5}
-  \caption{The logo of R.}
-  \label{figure:rlogo}
-\end{figure}
+test vs X86-64
 
-\section{Another section}
+\section{Testing Package Installability}
 
-There will likely be several sections, perhaps including code snippets, such as:
+\code{
+if (!require('tidyr')) {
+install.packages('tidyr',
+                 repos='https://www.stats.bris.ac.uk/R/')
+}
+library('tidyr')
+}
 
-\begin{example}
-  x <- 1:10
-  result <- myFunction(x)
-\end{example}
+Failures: bioconductor not installed, missing operating system packages, missmatch with interpreter versions. PAckage removed from CRAN (RNeo4j)
 
-\section{Summary}
+\section{Generation of the List of Packages}
 
-This file is only a basic article template. For full details of \emph{The R Journal} style and information on how to prepare your article for submission, see the \href{https://journal.r-project.org/share/author-guide.pdf}{Instructions for Authors}.
+The total number of packages in the \textsc{CRAN} as of 27 August 2019 was
+14857 and the number in BioCondcutor was 1741. As a method of reducing the
+computation required we decided to select a subset used by our users. We
+performed a search of the filesystem on our two largest Intel based clusters
+to find files named \texttt{*.r} and \texttt{*.R}.
+
+We excluded individual's own pacakges and those that are not on
+\textsc{CRAN} or BioConductor.
+
+\section{Continuous Integration Platforms Supporting aarch64}
+
+Given that the list of packages to be tested is very large and that it would need to be retested following system changes made to resolve build failures, we elected to use Continuous Integration (\textsc{CI}) to run the tests.
+
+The criteria for choosing a \textsc{CI} platform is that the "runner" or "agent" had to support \texttt{aarch64}.
+
+\begin{table}[htbp]
+\begin{tabular}{lll}
+\cline{1-3}
+Service & Usable on aarch64 & Comments\\ \cline{1-3}
+Travis & No & Runs via emulation on their infrastructure\\
+GitLab & No & aarch64 runner not yet production\\
+Azure Pipelines & No & ---\\
+Buildkite & \textbf{Yes} & --- \\
+Buildbot & Probably & Not evaluated due to time \\ \cline{1-3}
+\end{tabular}
+\caption{List of continuous integration services, status as at Sept 2019}
+\label{tab:ci-services}
+\end{table}
+
+\section{Systems Tested}
+
+\begin{table}[h]
+\begin{tabular}{lllll}
+\cline{1-5}
+System Name & Vendor & Model & OS & R Module \\ \cline{1-5}
+Isambard & Cray & XC50 & SUSE 15 & cray-R/3.4.2 \\
+Catalyst & HPE & Apollo 70 & SUSE 12 & lang/r/3.6.0-gcc \\ \cline{1-5}
+\end{tabular}
+\caption{HPC clusters tested }
+\label{tab:systems}
+\end{table}
+
+\section{Results}
+
+As an initial test we took the list of packages (n=44) used by one user. The results were
+
+\begin{table}[h]
+\begin{tabular}{lll}
+\hline
+System & PASS & FAIL \\ \hline
+Isambard & 19 (43\%) & 25 (57\%) \\
+Catalyst & 42 (95\%) & 2 (5\%) \\ \hline
+\end{tabular}
+\caption{Initial results for 44 pacakges}
+\label{tab:results-one-user}
+\end{table}
+
+\section{Further Work}
+
+\begin{itemize}
+    \item Test on AWS EC2 A1 Instances using the AWS Graviton processors
+    \item Roll in to CRAN
+\end{itemize}
+
+\section{Acknowledgments}
+
+The authors wish to thank the University of Bristol Advanced Computing
+Research Centre (\textsc{ACRC}) for access to the aarch64 clusters. This
+work used the Isambard UK National Tier-2 HPC Service
+(http://gw4.ac.uk/isambard/) operated by GW4 and the UK Met Office, and
+funded by EPSRC (EP/P020224/1). The Catalyst UK programme is supported by
+ARM, HPE and SUSE.
 
 \bibliography{edsall-rutterford}
 
-\address{Author One\\
-  Affiliation\\
-  Address\\
-  Country\\
-  (ORCiD if desired)\\
-  \email{author1@work}}
+\address{Christopher Edsall\\
+  University of Bristol\\
+  31 Great George Street\\
+  Bristol\\
+  BS1 5QD\\
+  United Kingdom\\
+  ORCiD: 0000-0001-6863-2184\\
+  \email{chris.edsall@bristol.ac.uk}}
 
-\address{Author Two\\
-  Affiliation\\
-  Address\\
-  Country\\
+\address{Ainsley Rutterford\\
+  University of Bristol\\
+  31 Great George Street\\
+  Bristol\\
+  BS1 5QD\\
+  United Kingdom\\
   (ORCiD if desired)\\
-  \email{author2@work}}
-
-\address{Author Three\\
-  Affiliation\\
-  Address\\
-  Country\\
-  (ORCiD if desired)\\
-  \email{author3@work}}
+  \email{ar16478@bristol.ac.uk}}
