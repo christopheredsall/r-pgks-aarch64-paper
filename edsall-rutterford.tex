@@ -6,8 +6,8 @@
 
 \abstract{
 A large part of the popularity of the R language is due to the extensive
-library of packages hosted on repositories such as the comprehensive R
-archive network (\textsc{CRAN}) and BioConductor. The \textsc{CRAN} website
+library of packages hosted on repositories such as the Comprehensive R
+Archive Network (\textsc{CRAN}) and BioConductor. The \textsc{CRAN} website
 lists the package build status on a number of platforms but these do not
 include \texttt{aarch64}. A number (n=XXX) of users at our institution use R
 on the high performance computing facilities, what proportion of them could
@@ -18,11 +18,11 @@ libraries 95\% of them can be installed "out of the box".
 
 \section{Introduction}
 
-The R programming language\citep{R:Ihaka+Gentleman:1996} is the preeminent
+The R programming language \citep{ihaka:1996} is the preeminent
 open source language in the domain of
-statistics\citep{muenchen2012popularity}. The interpreter has been ported to
+statistics \citep{muenchen2012popularity}. The interpreter has been ported to
 many computer architectures including the \textsc{ARM} aarch64. To extend
-the functionality of the language packages can be installed.
+the functionality of the language, packages can be installed.
 
 R packacge compiling
 
@@ -33,10 +33,9 @@ test vs X86-64
 \section{Testing Package Installability}
 
 \code{
-if (!require('tidyr')) {
-install.packages('tidyr',
-                 repos='https://www.stats.bris.ac.uk/R/')
-}
+if (!require('tidyr')) \{\\
+install.packages('tidyr',repos='https://www.stats.bris.ac.uk/R/')\\
+\}\\
 library('tidyr')
 }
 
@@ -60,6 +59,7 @@ Given that the list of packages to be tested is very large and that it would nee
 The criteria for choosing a \textsc{CI} platform is that the "runner" or "agent" had to support \texttt{aarch64}.
 
 \begin{table}[htbp]
+\centering
 \begin{tabular}{lll}
 \cline{1-3}
 Service & Usable on aarch64 & Comments\\ \cline{1-3}
@@ -75,7 +75,8 @@ Buildbot & Probably & Not evaluated due to time \\ \cline{1-3}
 
 \section{Systems Tested}
 
-\begin{table}[h]
+\begin{table}[ht]
+\centering
 \begin{tabular}{lllll}
 \cline{1-5}
 System Name & Vendor & Model & OS & R Module \\ \cline{1-5}
@@ -90,7 +91,8 @@ Catalyst & HPE & Apollo 70 & SUSE 12 & lang/r/3.6.0-gcc \\ \cline{1-5}
 
 As an initial test we took the list of packages (n=44) used by one user. The results were
 
-\begin{table}[h]
+\begin{table}[ht]
+\centering
 \begin{tabular}{lll}
 \hline
 System & PASS & FAIL \\ \hline
@@ -113,7 +115,7 @@ Catalyst & 42 (95\%) & 2 (5\%) \\ \hline
 The authors wish to thank the University of Bristol Advanced Computing
 Research Centre (\textsc{ACRC}) for access to the aarch64 clusters. This
 work used the Isambard UK National Tier-2 HPC Service
-(http://gw4.ac.uk/isambard/) operated by GW4 and the UK Met Office, and
+(\url{http://gw4.ac.uk/isambard/}) operated by GW4 and the UK Met Office, and
 funded by EPSRC (EP/P020224/1). The Catalyst UK programme is supported by
 ARM, HPE and SUSE.
 
